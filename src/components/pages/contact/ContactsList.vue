@@ -70,7 +70,6 @@ export default {
 .buttons {
   margin-top: 20px;
 }
-
 .delete-icon {
   cursor: pointer;
 }
@@ -80,5 +79,8 @@ export default {
 }
 .icon-link:hover {
   color: black;
+}
+.card {
+  margin-top: 20px;
 }
 </style>
