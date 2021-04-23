@@ -6,7 +6,6 @@
           <router-link to="/add-contact" class="btn btn-primary">
             Add new contact
           </router-link>
-          <!-- <a href="#" class="btn btn-primary" [routerLink]="['/contact/add-contact']"></a> -->
         </div>
       </div>
       <div class="col-lg-6">
