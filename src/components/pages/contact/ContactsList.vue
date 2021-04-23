@@ -43,6 +43,7 @@
   </div>
 </template>
 <script>
+import config from "../../../config";
 export default {
   data() {
     return {
@@ -53,6 +54,16 @@ export default {
     deleteContact(contact) {
       console.log("delete contact", contact);
     },
+  },
+  created() {
+    fetch(config.endpoints.contacts.read).then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+          console.log("data", data);
+          this.contacts = data;
+        });
+      }
+    });
   },
 };
 </script>
