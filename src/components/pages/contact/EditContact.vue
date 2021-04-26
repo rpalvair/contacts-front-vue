@@ -69,9 +69,9 @@ export default {
         return;
       }
       const contact = {
-        firstName: this.firstName.value,
-        lastName: this.lastName.value,
-        age: this.age.value,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        age: this.age,
         id: this.id,
       };
       console.log("Contact to edit", contact);
