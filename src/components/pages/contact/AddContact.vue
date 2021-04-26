@@ -56,6 +56,7 @@
   </div>
 </template>
 <script>
+import config from "../../../config";
 export default {
   data() {
     return {
@@ -88,6 +89,18 @@ export default {
         age: this.age.value,
       };
       console.log("Contact to create", contact);
+      fetch(config.endpoints.contacts.create, {
+        method: "POST",
+        body: JSON.stringify(contact),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((response) => {
+        console.log("response", response);
+        if (response.ok) {
+          this.$router.replace("/");
+        }
+      });
     },
     validateForm() {
       this.formIsValid = true;
