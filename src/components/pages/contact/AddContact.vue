@@ -99,20 +99,14 @@ export default {
     },
   },
   watch: {
-    firstName(_, old) {
-      if (old) {
-        this.validateForm();
-      }
+    firstName() {
+      this.validateForm();
     },
-    lastName(_, old) {
-      if (old) {
-        this.validateForm();
-      }
+    lastName() {
+      this.validateForm();
     },
-    age(_, old) {
-      if (old) {
-        this.validateForm();
-      }
+    age() {
+      this.validateForm();
     },
   },
 };
