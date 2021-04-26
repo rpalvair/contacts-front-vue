@@ -28,7 +28,10 @@
                 class="delete-icon"
                 @click="deleteContact(contact)"
               ></fa-icon>
-              <router-link to="/edit-contact" class="icon-link">
+              <router-link
+                :to="`/edit-contact/${contact.id}`"
+                class="icon-link"
+              >
                 <fa-icon icon="edit"></fa-icon>
               </router-link>
             </div>
