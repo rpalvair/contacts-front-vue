@@ -11,10 +11,8 @@
             <input
               type="text"
               class="form-control"
-              :class="{ 'is-invalid': !firstName.isValid && showValidations }"
               id="firstName"
-              v-model.trim="firstName.value"
-              @change="updateValidity('firstName')"
+              v-model.trim="firstName"
             />
           </div>
         </div>
@@ -24,10 +22,8 @@
             <input
               type="text"
               class="form-control"
-              :class="{ 'is-invalid': !lastName.isValid && showValidations }"
               id="lastName"
-              v-model.trim="lastName.value"
-              @change="updateValidity('lastName')"
+              v-model.trim="lastName"
             />
           </div>
         </div>
@@ -38,9 +34,7 @@
               type="number"
               class="form-control"
               id="age"
-              :class="{ 'is-invalid': !age.isValid && showValidations }"
-              v-model.number="age.value"
-              @change="updateValidity('age')"
+              v-model.number="age"
             />
           </div>
         </div>
@@ -61,19 +55,9 @@ export default {
   data() {
     return {
       formIsValid: false,
-      showValidations: false,
-      firstName: {
-        isValid: true,
-        value: "",
-      },
-      lastName: {
-        isValid: true,
-        value: "",
-      },
-      age: {
-        isValid: true,
-        value: null,
-      },
+      firstName: "",
+      lastName: "",
+      age: null,
     };
   },
   methods: {
@@ -84,9 +68,9 @@ export default {
         return;
       }
       const contact = {
-        firstName: this.firstName.value,
-        lastName: this.lastName.value,
-        age: this.age.value,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        age: this.age,
       };
       console.log("Contact to create", contact);
       fetch(config.endpoints.contacts.create, {
@@ -103,33 +87,26 @@ export default {
       });
     },
     validateForm() {
+      console.log("validateForm");
       this.formIsValid = true;
-      if (this.firstName.value === "") {
-        this.firstName.isValid = false;
+      if (this.firstName === "") {
         this.formIsValid = false;
-      } else {
-        this.firstName.isValid = true;
-      }
-      if (this.lastName.value === "") {
-        this.lastName.isValid = false;
+      } else if (this.lastName === "") {
         this.formIsValid = false;
-      } else {
-        this.lastName.isValid = true;
-      }
-      if (
-        this.age.value == null ||
-        this.age.value === "" ||
-        this.age.value <= 0
-      ) {
-        this.age.isValid = false;
+      } else if (this.age == null || this.age === "" || this.age <= 0) {
         this.formIsValid = false;
-      } else {
-        this.age.isValid = true;
       }
     },
-    updateValidity() {
+  },
+  watch: {
+    firstName() {
       this.validateForm();
-      this.showValidations = true;
+    },
+    lastName() {
+      this.validateForm();
+    },
+    age() {
+      this.validateForm();
     },
   },
 };
