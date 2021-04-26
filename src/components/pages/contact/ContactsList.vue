@@ -22,9 +22,6 @@
             <h6 class="card-subtitle mb-2 text-muted">
               {{ contact.age }} years old
             </h6>
-            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a> -->
             <div class="actions">
               <fa-icon
                 icon="trash"
@@ -52,17 +49,26 @@ export default {
   methods: {
     deleteContact(contact) {
       console.log("delete contact", contact);
+      fetch(config.endpoints.contacts.delete + "/" + contact.id, {
+        method: "DELETE",
+      }).then((response) => {
+        console.log("response", response);
+        this.loadContacts();
+      });
+    },
+    loadContacts() {
+      fetch(config.endpoints.contacts.read).then((response) => {
+        if (response.ok) {
+          response.json().then((data) => {
+            console.log("data", data);
+            this.contacts = data;
+          });
+        }
+      });
     },
   },
   created() {
-    fetch(config.endpoints.contacts.read).then((response) => {
-      if (response.ok) {
-        response.json().then((data) => {
-          console.log("data", data);
-          this.contacts = data;
-        });
-      }
-    });
+    this.loadContacts();
   },
 };
 </script>
