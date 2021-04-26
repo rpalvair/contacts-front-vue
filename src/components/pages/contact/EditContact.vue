@@ -11,10 +11,8 @@
             <input
               type="text"
               class="form-control"
-              :class="{ 'is-invalid': !firstName.isValid && showValidations }"
               id="firstName"
-              v-model.trim="firstName.value"
-              @change="updateValidity('firstName')"
+              v-model.trim="firstName"
             />
           </div>
         </div>
@@ -24,10 +22,8 @@
             <input
               type="text"
               class="form-control"
-              :class="{ 'is-invalid': !lastName.isValid && showValidations }"
               id="lastName"
-              v-model.trim="lastName.value"
-              @change="updateValidity('lastName')"
+              v-model.trim="lastName"
             />
           </div>
         </div>
@@ -38,9 +34,7 @@
               type="number"
               class="form-control"
               id="age"
-              :class="{ 'is-invalid': !age.isValid && showValidations }"
-              v-model.number="age.value"
-              @change="updateValidity('age')"
+              v-model.number="age"
             />
           </div>
         </div>
@@ -61,19 +55,9 @@ export default {
   data() {
     return {
       formIsValid: false,
-      showValidations: false,
-      firstName: {
-        isValid: true,
-        value: "",
-      },
-      lastName: {
-        isValid: true,
-        value: "",
-      },
-      age: {
-        isValid: true,
-        value: null,
-      },
+      firstName: "",
+      lastName: "",
+      age: null,
       id: null,
     };
   },
@@ -105,33 +89,33 @@ export default {
       });
     },
     validateForm() {
-      this.formIsValid = true;
-      if (this.firstName.value === "") {
-        this.firstName.isValid = false;
+      console.log("validateForm");
+      if (this.firstName === "") {
+        this.formIsValid = false;
+      } else if (this.lastName === "") {
+        this.formIsValid = false;
+      } else if (this.age == null || this.age === "" || this.age <= 0) {
         this.formIsValid = false;
       } else {
-        this.firstName.isValid = true;
-      }
-      if (this.lastName.value === "") {
-        this.lastName.isValid = false;
-        this.formIsValid = false;
-      } else {
-        this.lastName.isValid = true;
-      }
-      if (
-        this.age.value == null ||
-        this.age.value === "" ||
-        this.age.value <= 0
-      ) {
-        this.age.isValid = false;
-        this.formIsValid = false;
-      } else {
-        this.age.isValid = true;
+        this.formIsValid = true;
       }
     },
-    updateValidity() {
-      this.validateForm();
-      this.showValidations = true;
+  },
+  watch: {
+    firstName(_, old) {
+      if (old) {
+        this.validateForm();
+      }
+    },
+    lastName(_, old) {
+      if (old) {
+        this.validateForm();
+      }
+    },
+    age(_, old) {
+      if (old) {
+        this.validateForm();
+      }
     },
   },
   created() {
@@ -139,9 +123,9 @@ export default {
     console.log("id", id);
     fetch(config.endpoints.contacts.read + "/" + id).then((response) => {
       response.json().then((data) => {
-        this.firstName.value = data.firstName;
-        this.lastName.value = data.lastName;
-        this.age.value = data.age;
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.age = data.age;
         this.id = data.id;
       });
     });
