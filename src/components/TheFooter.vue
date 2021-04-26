@@ -4,9 +4,10 @@
 
 <style scoped>
 .footer {
+  margin-top: 20px;
   padding-top: 50px;
   padding-bottom: 50px;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   text-align: center;
