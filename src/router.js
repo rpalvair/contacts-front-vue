@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router"
-import NotFound from "./components/pages/NotFound.vue"
-import ContactsList from "./components/pages/contact/ContactsList.vue"
-import AddContact from "./components/pages/contact/AddContact.vue"
-import EditContact from "./components/pages/contact/EditContact.vue"
+import NotFound from "./pages/NotFound.vue"
+import ContactsList from "./pages/contact/ContactsList.vue"
+import AddContact from "./pages/contact/AddContact.vue"
+import EditContact from "./pages/contact/EditContact.vue"
 
 const router = createRouter({
     history: createWebHistory(),
