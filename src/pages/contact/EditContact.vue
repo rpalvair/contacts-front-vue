@@ -1,5 +1,5 @@
 <template>
-  <h3>Add contact</h3>
+  <h3>Edit contact</h3>
   <div class="row">
     <div class="col-lg-4 p-5">
       <form @submit.prevent="onSubmit">
@@ -43,14 +43,14 @@
           :disabled="!formIsValid"
           class="btn btn-primary mb-2"
         >
-          Create contact
+          Save modifications
         </button>
       </form>
     </div>
   </div>
 </template>
 <script>
-import config from "../../../config";
+import config from "../../config";
 export default {
   data() {
     return {
@@ -58,6 +58,7 @@ export default {
       firstName: "",
       lastName: "",
       age: null,
+      id: null,
     };
   },
   methods: {
@@ -71,10 +72,11 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName,
         age: this.age,
+        id: this.id,
       };
-      console.log("Contact to create", contact);
-      fetch(config.endpoints.contacts.create, {
-        method: "POST",
+      console.log("Contact to edit", contact);
+      fetch(config.endpoints.contacts.edit, {
+        method: "PUT",
         body: JSON.stringify(contact),
         headers: {
           "Content-Type": "application/json",
@@ -88,26 +90,45 @@ export default {
     },
     validateForm() {
       console.log("validateForm");
-      this.formIsValid = true;
       if (this.firstName === "") {
         this.formIsValid = false;
       } else if (this.lastName === "") {
         this.formIsValid = false;
       } else if (this.age == null || this.age === "" || this.age <= 0) {
         this.formIsValid = false;
+      } else {
+        this.formIsValid = true;
       }
     },
   },
   watch: {
-    firstName() {
-      this.validateForm();
+    firstName(_, old) {
+      if (old) {
+        this.validateForm();
+      }
     },
-    lastName() {
-      this.validateForm();
+    lastName(_, old) {
+      if (old) {
+        this.validateForm();
+      }
     },
-    age() {
-      this.validateForm();
+    age(_, old) {
+      if (old) {
+        this.validateForm();
+      }
     },
+  },
+  created() {
+    const id = this.$route.params.id;
+    console.log("id", id);
+    fetch(config.endpoints.contacts.read + "/" + id).then((response) => {
+      response.json().then((data) => {
+        this.firstName = data.firstName;
+        this.lastName = data.lastName;
+        this.age = data.age;
+        this.id = data.id;
+      });
+    });
   },
 };
 </script>
