@@ -1,51 +1,50 @@
 <template>
-  <h3>Add contact</h3>
-  <div class="row">
-    <div class="col-lg-4 p-5">
-      <form @submit.prevent="onSubmit">
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="firstName"
-            >Firstname</label
-          >
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control"
-              id="firstName"
-              v-model.trim="firstName"
-            />
+  <div class="container">
+    <h3>Add contact</h3>
+    <div class="row">
+      <div class="col-lg-6 p-5">
+        <form @submit.prevent="onSubmit">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="firstName">Firstname</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                v-model.trim="firstName"
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="lastName">Lastname</label>
-          <div class="col-sm-10">
-            <input
-              type="text"
-              class="form-control"
-              id="lastName"
-              v-model.trim="lastName"
-            />
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="lastName">Lastname</label>
+            <div class="col-sm-10">
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                v-model.trim="lastName"
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-2 col-form-label" for="age">Age</label>
-          <div class="col-sm-10">
-            <input
-              type="number"
-              class="form-control"
-              id="age"
-              v-model.number="age"
-            />
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="age">Age</label>
+            <div class="col-sm-10">
+              <input
+                type="number"
+                class="form-control"
+                id="age"
+                v-model.number="age"
+              />
+            </div>
           </div>
-        </div>
-        <button
-          type="submit"
-          :disabled="!formIsValid"
-          class="btn btn-primary mb-2"
-        >
-          Create contact
-        </button>
-      </form>
+          <button
+            type="submit"
+            :disabled="!formIsValid"
+            class="btn btn-primary mb-2">
+            Create contact
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
